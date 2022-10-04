@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { useApp } from "../providers/app.provider";
 import logo from "../images/logoPNG.png";
 import "../styles/LoginScreen.css";
@@ -13,6 +13,7 @@ function LoginScreen() {
     const [openAlert, setOpenAlert] = useState(false);
     const [itsOkForMail, setItsOkForMail] = useState(false);
     const [errTxt, setErrTxt] = useState("");
+    const inputRef = useRef(null);
     const { colors } = useApp();
 
     async function NavTo() {
@@ -95,7 +96,7 @@ function LoginScreen() {
                     className="input"
                     type="text"
                     placeholder="Mot de passe"
-                    // autoFocus
+                    ref={inputRef} autoFocus={inputRef.current === document.activeElement}
                     value={password}
                     onChange={handleChangPass}
                 />
@@ -112,6 +113,7 @@ function LoginScreen() {
                 <button
                     onClick={() => {
                         setItsOkForMail(false);
+                        setPassword("");
                     }}
                     className="btn-rtr"
                 >
@@ -147,7 +149,8 @@ function LoginScreen() {
                     type="text"
                     placeholder="Email"
                     value={mail}
-                    autoFocus
+                    // autoFocus
+                    ref={inputRef} autoFocus={inputRef.current === document.activeElement}
                     onChange={handleChangeMail}
                 />
                 <p className="txt-err">{errTxt}</p>
@@ -160,7 +163,7 @@ function LoginScreen() {
                 >
                     <p>Suivant</p>
                 </button>
-                <button onClick={NavTo} className="btn btn-crt-cmpt">
+                <button onClick={()=>{}} className="btn btn-crt-cmpt">
                     <p>Créer un compte</p>
                 </button>
             </div>
